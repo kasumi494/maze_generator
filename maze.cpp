@@ -28,7 +28,6 @@ void Maze::DrawCell(cv::Point2i point, cv::Scalar color) {
 }
 
 void Maze::Wave(cv::Point2i point, cv::Point2i delta) {
-  step_count++;
   cv::Point2i new_point = point + delta;
 
   if (isMoveCorrect(new_point)) {
@@ -37,7 +36,7 @@ void Maze::Wave(cv::Point2i point, cv::Point2i delta) {
     DrawCell(new_point * (int)block_size);
 
     /// Mark neibours
-    for (auto x : delta_) {
+    for (auto x : delta_n_) {
       cv::Point2i tmp = new_point + x;
       if (isMoveCorrect(tmp)) {
         if (maze_struct_(tmp.y, tmp.x) != 100) {
@@ -60,7 +59,7 @@ void Maze::Wave(cv::Point2i point, cv::Point2i delta) {
 bool Maze::isMoveCorrect(cv::Point2i point) {
   if ((point.y < maze_struct_.rows) && (point.y >= 0) &&
       (point.x < maze_struct_.cols) && (point.x >= 0)) {
-    if (maze_struct_(point.y, point.x) < 2) {
+    if (maze_struct_(point.y, point.x) < 3) {
       return true;
     }
   }
