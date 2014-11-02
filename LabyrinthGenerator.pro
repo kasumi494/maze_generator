@@ -7,7 +7,7 @@ SOURCES += main.cpp \
     maze.cpp
 
 HEADERS += \
-    maze.h
+    maze.hpp
 
 unix: CONFIG += link_pkgconfig
 unix: PKGCONFIG += opencv
