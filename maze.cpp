@@ -1,12 +1,17 @@
 #include "maze.hpp"
 #include <iostream>
 #include <algorithm>
+#include <queue>
+#include <cstdlib>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
 
 Maze::Maze(int rows, int cols) {
   maze_ = cv::Mat_<uchar>(cols * block_size, rows * block_size);
   maze_struct_ = cv::Mat_<uchar>(cols, rows);
+
+  for (int i = 0; i < maze_struct_.rows; ++i)
+    for (int j = 0; j < maze_struct_.cols; ++j) maze_struct_(i, j) = 0;
 }
 
 void Maze::Create(bool isShow) {
@@ -48,6 +53,7 @@ void Maze::Wave(cv::Point2i point, cv::Point2i delta) {
 
     Display();
 
+    /// Select next cell
     std::vector<cv::Point2i> curr_delta(delta_);
     std::random_shuffle(curr_delta.begin(), curr_delta.end());
     for (auto x : curr_delta) {
@@ -65,4 +71,44 @@ bool Maze::isMoveCorrect(cv::Point2i point) {
   }
 
   return false;
+}
+
+void Maze::WaveQueue(cv::Point2i point) {
+  std::queue<cv::Point2i> cells_queue;
+
+  /// Start point
+  cells_queue.push(point);
+
+  while (!cells_queue.empty()) {
+    Display();
+
+    cv::Point2i current_cell = cells_queue.front();
+    cells_queue.pop();
+
+    /// Mark cell as visited
+    if (isMoveCorrect(current_cell)) {
+      maze_struct_(current_cell.y, current_cell.x) = 100;
+      DrawCell(current_cell * (int)block_size);
+
+      /// Mark neibours (for walls)
+      for (int index : indexes_) {
+        cv::Point2i neibour_cell = current_cell + delta_n_.at(index);
+
+        if (isMoveCorrect(neibour_cell)) {
+          if (maze_struct_(neibour_cell.y, neibour_cell.x) != 100) {
+            maze_struct_(neibour_cell.y, neibour_cell.x)++;
+            DrawCell(neibour_cell * (int)block_size, cv::Scalar(100, 100, 100));
+          }
+        }
+      }
+
+      for (int i = 0; i < 6; ++i) {
+        /// Select next cell
+        /// Can move only horizontal and vertical
+        size_t index = rand() % delta_.size();
+        cv::Point2i neibour_cell = current_cell + delta_.at(index);
+        cells_queue.push(neibour_cell);
+      }
+    }
+  }
 }

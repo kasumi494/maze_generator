@@ -12,6 +12,10 @@ public:
   void Create(bool isShow);
   void Display();
 
+
+  void WaveQueue(cv::Point2i point);
+
+
 private:
   void DrawCell(cv::Point2i point, cv::Scalar color = cv::Scalar(255, 255, 255));
   void Wave(cv::Point2i point, cv::Point2i delta);
@@ -31,6 +35,8 @@ private:
     cv::Point2i(-1, -1), cv::Point2i(1,  -1),
     cv::Point2i( -1, 1), cv::Point2i(1,  1)
   };
+
+  std::vector<int> indexes_ = {0, 1, 2, 3, 4, 5, 6, 7};
 
   const size_t block_size = 10;
 };
