@@ -7,19 +7,17 @@
 class Maze {
 public:
   Maze(int rows = 100, int cols = 80);
-  ~Maze() {}
+  virtual ~Maze() {}
 
-  void Create(bool isShow);
+  virtual void Create(bool isShow) = 0;
   void Display();
-
 
   void WaveQueue(cv::Point2i point);
 
-
-private:
-  void DrawCell(cv::Point2i point, cv::Scalar color = cv::Scalar(255, 255, 255));
-  void Wave(cv::Point2i point, cv::Point2i delta);
+protected:
+  void DrawCell(cv::Point2i point, cv::Scalar color = cv::Scalar(255, 255, 255)); 
   bool isMoveCorrect(cv::Point2i point);
+  void MarkNeibours(cv::Point2i cell_coordinate);
 
   cv::Mat_<uchar> maze_;
   cv::Mat_<uchar> maze_struct_;

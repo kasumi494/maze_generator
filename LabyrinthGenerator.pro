@@ -4,10 +4,14 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += main.cpp \
-    maze.cpp
+    maze.cpp \
+    mazerecursion.cpp \
+    mazewave.cpp
 
 HEADERS += \
-    maze.hpp
+    maze.hpp \
+    mazerecursion.hpp \
+    mazewave.hpp
 
 unix: CONFIG += link_pkgconfig
 unix: PKGCONFIG += opencv
