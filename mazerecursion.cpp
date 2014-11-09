@@ -3,7 +3,7 @@
 
 void MazeRecursion::Create(cv::Point2i start, bool isShow) {
   isShow_ = isShow;
-  Wave(start, delta_[2]);
+  Wave(start + cv::Point2i(1, 1), delta_[2]);
 }
 
 void MazeRecursion::Wave(cv::Point2i point, cv::Point2i delta) {

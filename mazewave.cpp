@@ -3,7 +3,7 @@
 
 void MazeWave::Create(cv::Point2i start, bool isShow) {
   std::queue<cv::Point2i> cells_queue;
-  cells_queue.push(start);
+  cells_queue.push(start + cv::Point2i(1, 1));
   isShow_ = isShow;
 
   while (!cells_queue.empty()) {

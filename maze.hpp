@@ -35,6 +35,8 @@ protected:
 
   std::vector<int> indexes_ = {0, 1, 2, 3, 4, 5, 6, 7};
   const int block_size = 10;
+
+  enum CellState : uchar {MAX_NEIBOURS = 3, PATH = 100, BORDER = 200};
 };
 
 #endif  // MAZE_H
