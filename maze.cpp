@@ -36,16 +36,9 @@ void Maze::DrawCell(cv::Point2i point, cv::Scalar color) {
 }
 
 bool Maze::isMoveCorrect(cv::Point2i point) {
-  auto is_in_range = [this](cv::Point2i point) {
-    return ((point.y < maze_struct_.rows) && (point.y >= 0) &&
-            (point.x < maze_struct_.cols) && (point.x >= 0));
-  };
-
-  if (is_in_range(point)) {
-    /// It isn't a path and have < 3 path in the surrounding area
-    if (maze_struct_(point.y, point.x) < 3) {
-      return true;
-    }
+  /// And automatically check for borders
+  if (maze_struct_(point.y, point.x) < CellState::MAX_NEIBOURS) {
+    return true;
   }
 
   return false;
