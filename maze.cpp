@@ -10,7 +10,7 @@ Maze::Maze(int rows, int cols) {
   int rows_n = rows + 2;
   int cols_n = cols + 2;
 
-  maze_ = cv::Mat_<uchar>(cols_n * block_size, rows_n * block_size, uchar(0));
+  maze_ = cv::Mat_<uchar>(cols_n * kBlockSize, rows_n * kBlockSize, uchar(0));
   maze_struct_ = cv::Mat_<uchar>(cols_n, rows_n, uchar(0));
 
   /// for easy border checking
@@ -31,11 +31,11 @@ void Maze::Display() {
 }
 
 void Maze::DrawCell(cv::Point2i point, cv::Scalar color) {
-  cv::rectangle(maze_, cv::Rect(point.x, point.y, block_size, block_size),
+  cv::rectangle(maze_, cv::Rect(point.x, point.y, kBlockSize, kBlockSize),
                 color, -1);
 }
 
-bool Maze::isMoveCorrect(cv::Point2i point) {
+bool Maze::IsMoveCorrect(cv::Point2i point) {
   /// And automatically check for borders
   if (maze_struct_(point.y, point.x) < CellState::MAX_NEIBOURS) {
     return true;
@@ -44,13 +44,13 @@ bool Maze::isMoveCorrect(cv::Point2i point) {
   return false;
 }
 
-void Maze::MarkNeibours(cv::Point2i cell_coordinate) {
-  for (auto x : delta_n_) {
-    cv::Point2i tmp = cell_coordinate + x;
+void Maze::MarkNeibours(cv::Point2i point) {
+  for (auto x : kDeltas_) {
+    cv::Point2i tmp = point + x;
 
-    if (isMoveCorrect(tmp)) {
+    if (IsMoveCorrect(tmp)) {
       maze_struct_(tmp.y, tmp.x)++;
-      DrawCell(tmp * block_size, cv::Scalar(100, 100, 100));
+      DrawCell(tmp * kBlockSize, cv::Scalar(100, 100, 100));
     }
   }
 }

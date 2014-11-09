@@ -7,8 +7,8 @@
 int main()
 {
   Maze *maze;
-//  maze = new MazeRecursion();
-  maze = new MazeWave();
+  maze = new MazeRecursion();
+//  maze = new MazeWave();
 
   maze->Create(cv::Point2i(0, 0), true);
 
