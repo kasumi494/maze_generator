@@ -9,10 +9,9 @@ public:
   Maze(int rows = 100, int cols = 80);
   virtual ~Maze() {}
 
-  virtual void Create(bool isShow) = 0;
+  virtual void Create(cv::Point2i start = cv::Point2i(0, 0),
+                      bool isShow = false) = 0;
   void Display();
-
-  void WaveQueue(cv::Point2i point);
 
 protected:
   void DrawCell(cv::Point2i point, cv::Scalar color = cv::Scalar(255, 255, 255)); 
@@ -35,8 +34,7 @@ protected:
   };
 
   std::vector<int> indexes_ = {0, 1, 2, 3, 4, 5, 6, 7};
-
-  const size_t block_size = 10;
+  const int block_size = 10;
 };
 
 #endif  // MAZE_H

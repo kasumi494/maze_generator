@@ -1,11 +1,9 @@
 #include "mazerecursion.hpp"
 #include <algorithm>
 
-void MazeRecursion::Create(bool isShow) {
+void MazeRecursion::Create(cv::Point2i start, bool isShow) {
   isShow_ = isShow;
-
-  cv::Point2i start_point(0, 0);
-  Wave(start_point, delta_[2]);
+  Wave(start, delta_[2]);
 }
 
 void MazeRecursion::Wave(cv::Point2i point, cv::Point2i delta) {
@@ -14,7 +12,7 @@ void MazeRecursion::Wave(cv::Point2i point, cv::Point2i delta) {
   if (isMoveCorrect(new_point)) {
     /// Mark cell as visited
     maze_struct_(new_point.y, new_point.x) = 100;
-    DrawCell(new_point * (int)block_size);
+    DrawCell(new_point * block_size);
 
     /// Mark neibours
     MarkNeibours(new_point);

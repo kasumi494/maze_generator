@@ -5,7 +5,7 @@
 
 class MazeWave : public Maze {
  public:
-  void Create(bool isShow);
+  void Create(cv::Point2i start = cv::Point2i(0, 0), bool isShow = false);
 
  private:
   bool isShow_;
