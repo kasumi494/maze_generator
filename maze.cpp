@@ -49,10 +49,8 @@ void Maze::MarkNeibours(cv::Point2i cell_coordinate) {
     cv::Point2i tmp = cell_coordinate + x;
 
     if (isMoveCorrect(tmp)) {
-      if (maze_struct_(tmp.y, tmp.x) != 100) {
-        maze_struct_(tmp.y, tmp.x)++;
-        DrawCell(tmp * block_size, cv::Scalar(100, 100, 100));
-      }
+      maze_struct_(tmp.y, tmp.x)++;
+      DrawCell(tmp * block_size, cv::Scalar(100, 100, 100));
     }
   }
 }

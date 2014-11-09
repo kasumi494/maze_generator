@@ -21,11 +21,6 @@ protected:
   cv::Mat_<uchar> maze_;
   cv::Mat_<uchar> maze_struct_;
 
-  const std::vector<cv::Point2i> delta_ = {
-    cv::Point2i(-1, 0), cv::Point2i(0, -1),
-    cv::Point2i( 1, 0), cv::Point2i(0,  1)
-  };
-
   const std::vector<cv::Point2i> delta_n_ = {
     cv::Point2i(-1, 0), cv::Point2i(0, -1),
     cv::Point2i( 1, 0), cv::Point2i(0,  1),
