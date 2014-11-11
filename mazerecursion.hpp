@@ -5,12 +5,13 @@
 
 class MazeRecursion : public Maze {
  public:
-  void Create(cv::Point2i start = cv::Point2i(0, 0), bool isShow = false);
+  MazeRecursion(int rows = 100, int cols = 80, bool isShow = true)
+      : Maze(rows, cols, isShow) {}
+
+  void Create(cv::Point2i start = cv::Point2i(0, 0));
 
  private:
   void Wave(cv::Point2i point, cv::Point2i delta);
-
-  bool isShow_;
 };
 
 #endif  // MAZERECURSION_HPP

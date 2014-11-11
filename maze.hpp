@@ -6,18 +6,18 @@
 
 class Maze {
 public:
-  Maze(int rows = 100, int cols = 80);
+  Maze(int rows, int cols, bool isShow);
   virtual ~Maze() {}
 
-  void Display();
-  virtual void Create(cv::Point2i start = cv::Point2i(0, 0),
-                      bool isShow = false) = 0;
+  void Display(uint delay = 0);
+  virtual void Create(cv::Point2i start = cv::Point2i(0, 0)) = 0;
 
 protected:
   void DrawCell(cv::Point2i point, cv::Scalar color = cv::Scalar(255, 255, 255)); 
   void MarkNeibours(cv::Point2i point);
   bool IsMoveCorrect(cv::Point2i point);
 
+  bool isShow_;
   cv::Mat_<uchar> maze_;
   cv::Mat_<uchar> maze_struct_;
 

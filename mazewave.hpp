@@ -5,10 +5,10 @@
 
 class MazeWave : public Maze {
  public:
-  void Create(cv::Point2i start = cv::Point2i(0, 0), bool isShow = false);
+  MazeWave(int rows = 100, int cols = 80, bool isShow = true)
+      : Maze(rows, cols, isShow) {}
 
- private:
-  bool isShow_;
+  void Create(cv::Point2i start = cv::Point2i(0, 0));
 };
 
 #endif  // MAZEWAVE_HPP

@@ -1,8 +1,7 @@
 #include "mazerecursion.hpp"
 #include <algorithm>
 
-void MazeRecursion::Create(cv::Point2i start, bool isShow) {
-  isShow_ = isShow;
+void MazeRecursion::Create(cv::Point2i start) {
   Wave(start + cv::Point2i(1, 1), kDeltas_[2]);
 }
 
@@ -16,7 +15,7 @@ void MazeRecursion::Wave(cv::Point2i point, cv::Point2i delta) {
 
     MarkNeibours(new_point);
 
-    if (isShow_) Display();
+    if (isShow_) Display(1);
 
     /// Select next cell
     std::vector<int> delta_indexes = {0, 1, 2, 3};

@@ -3,7 +3,8 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
 
-Maze::Maze(int rows, int cols) {
+Maze::Maze(int rows, int cols, bool isShow)
+    : isShow_(isShow), maze_struct_(cols + 2, rows + 2, uchar(0)) {
   srand(time(NULL));
 
   /// Add cells for border
@@ -11,7 +12,6 @@ Maze::Maze(int rows, int cols) {
   int cols_n = cols + 2;
 
   maze_ = cv::Mat_<uchar>(cols_n * kBlockSize, rows_n * kBlockSize, uchar(0));
-  maze_struct_ = cv::Mat_<uchar>(cols_n, rows_n, uchar(0));
 
   /// for easy border checking
   for (auto i = 0; i < maze_struct_.rows; ++i) {
@@ -25,9 +25,9 @@ Maze::Maze(int rows, int cols) {
   }
 }
 
-void Maze::Display() {
+void Maze::Display(uint delay) {
   cv::imshow("Maze", maze_);
-  cv::waitKey(1);
+  cv::waitKey(delay);
 }
 
 void Maze::DrawCell(cv::Point2i point, cv::Scalar color) {

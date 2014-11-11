@@ -1,9 +1,8 @@
 #include "mazewave.hpp"
 #include <queue>
 
-void MazeWave::Create(cv::Point2i start, bool isShow) {
+void MazeWave::Create(cv::Point2i start) {
   int magic_const = 6;
-  isShow_ = isShow;
 
   std::queue<cv::Point2i> cells_queue;
   cells_queue.push(start + cv::Point2i(1, 1));
@@ -27,6 +26,6 @@ void MazeWave::Create(cv::Point2i start, bool isShow) {
       }
     }
 
-    if (isShow_)  Display();
+    if (isShow_)  Display(1);
   }
 }
